@@ -27,30 +27,70 @@ const CustomPagination = (props: PaginationProps) => {
             onClick={() => props.onPageChange(props.currentPage - 1)}
           />
         </PaginationItem>
+
         {props.currentPage < props.lastPage - 1 && (
           <>
-            <PaginationItem>
-              <PaginationLink
-                className={props.currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                isActive
-                onClick={() => props.onPageChange(props.currentPage-1)}
-              >
-                {props.currentPage}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => props.onPageChange(props.currentPage + 1)}>
-                {props.currentPage + 1}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => props.onPageChange(props.currentPage + 2)}>
-                {props.currentPage+2}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
+            {props.currentPage === 1 && (
+              <>
+                <PaginationItem>
+                  <PaginationLink
+                    className={props.currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                    isActive={props.currentPage===1}
+                    onClick={() => props.onPageChange(1)}
+                  >
+                    1
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink isActive={props.currentPage!==1} onClick={() => props.onPageChange(props.currentPage+1)}>
+                    {props.currentPage+1}
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink isActive={props.currentPage!==1} onClick={() => props.onPageChange(props.currentPage+2)}>
+                    {props.currentPage+2}
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink onClick={() => props.onPageChange(props.lastPage)}>
+                    {props.lastPage}
+                  </PaginationLink>
+                </PaginationItem>
+              </>
+            )}
+
+            {props.currentPage !== 1 && (
+              <>
+              <PaginationItem>
+                <PaginationLink
+                  className={props.currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                  isActive={props.currentPage===1} onClick={() => props.onPageChange(props.currentPage-1)}>
+                  {props.currentPage-1}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink isActive={props.currentPage!==1} onClick={() => props.onPageChange(props.currentPage)}>
+                  {props.currentPage}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink onClick={() => props.onPageChange(props.currentPage+1)}>
+                  {props.currentPage+1}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
               <PaginationEllipsis />
             </PaginationItem>
+             <PaginationItem>
+                <PaginationLink onClick={() => props.onPageChange(props.lastPage)}>
+                  {props.lastPage}
+                </PaginationLink>
+              </PaginationItem>
+            </>
+            )}
           </>
         )}
 
@@ -69,6 +109,15 @@ const CustomPagination = (props: PaginationProps) => {
             </PaginationItem>
             <PaginationItem>
               <PaginationLink
+                isActive={props.currentPage===props.lastPage-2}
+                onClick={() => props.onPageChange(props.lastPage-2)}
+                className={props.currentPage === props.lastPage-2 ? "pointer-events-none opacity-50" : ""}
+              >
+                {props.lastPage-2}
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink
                 isActive={props.currentPage===props.lastPage-1}
                 onClick={() => props.onPageChange(props.lastPage-1)}
                 className={props.currentPage === props.lastPage-1 ? "pointer-events-none opacity-50" : ""}
@@ -76,7 +125,6 @@ const CustomPagination = (props: PaginationProps) => {
                 {props.lastPage-1}
               </PaginationLink>
             </PaginationItem>
-
             <PaginationItem>
               <PaginationLink
                 isActive={props.currentPage===props.lastPage}
@@ -99,6 +147,5 @@ const CustomPagination = (props: PaginationProps) => {
     </Pagination>
     )
 }
-
 
 export default CustomPagination;
