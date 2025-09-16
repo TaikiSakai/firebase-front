@@ -1,9 +1,10 @@
-import './App.css'
+import '@/App.css'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-import CustomPagination from './components/common/pagination'
-import type { PageNation, PageNationResponse, User } from './types'
+import CustomPagination from '../components/common/pagination'
+import type { PageNation, PageNationResponse, User } from '../types'
+import useAuthorize from './auth/hooks'
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     { page: 0, pages: 0, size: 0, total: 0 }
   );
   const [users, setUsers] = useState<Record<number, User[]>>({});
+  const {handleLogout} = useAuthorize();
 
   const onSubmit = async (page: number, q_user_name: string | null) => {
     try {
@@ -72,6 +74,9 @@ function App() {
   return (
     <>
       <div className="App p-50">
+        <div>
+          <button onClick={handleLogout}>logOut</button>
+        </div>
         <div>Search User</div>
         <div className="my-5">
           <div className="flex space-x-2">
